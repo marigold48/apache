@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="PES Marigold">
+
+<title>Info RETO</title>
+
+<!-- Bootstrap core CSS -->
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+				<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+		.faqHeader {
+				font-size: 27px;
+				margin: 20px;
+		}
+
+		.panel-heading [data-toggle="collapse"]:after {
+				font-family: 'Glyphicons Halflings';
+				content: "\e072"; /* "play" icon */
+				float: right;
+				color: #F58723;
+				font-size: 18px;
+				line-height: 22px;
+				/* rotate "play" icon from > (right arrow) to down arrow */
+				-webkit-transform: rotate(-90deg);
+				-moz-transform: rotate(-90deg);
+				-ms-transform: rotate(-90deg);
+				-o-transform: rotate(-90deg);
+				transform: rotate(-90deg);
+		}
+
+		.panel-heading [data-toggle="collapse"].collapsed:after {
+				/* rotate "play" icon from > (right arrow) to ^ (up arrow) */
+				-webkit-transform: rotate(90deg);
+				-moz-transform: rotate(90deg);
+				-ms-transform: rotate(90deg);
+				-o-transform: rotate(90deg);
+				transform: rotate(90deg);
+				color: #454444;
+		}
+</style>
+
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+
+<div class="container">
+			<div class="blog-header">
+				<h1 class="blog-title">Proyecto RETO</h1>
+			</div>
+
+
+		<div class="alert alert-warning alert-dismissible" role="alert">
+				<p>Esta primera información, intenta dar respuestas a aspectos generales sobre el Proyecto.</p>
+				<p>En cada apartado se incluyen links a otras páginas para ampliar la info.</p>
+				<p>Progresivamente, se irán ampliando los temas, acerca de las funcionalidades que ofrece la plataforma.</p>
+		</div>
+
+		<br />
+		<div class="panel-group" id="accordion">
+				<div class="faqHeader">General</div>
+
+				<div class="panel panel-default">
+						<div class="panel-heading">
+								<h4 class="panel-title">
+										<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1">¿Porqué se llama Proyecto RETO?</a>
+								</h4>
+						</div>
+						<div id="collapse1" class="panel-collapse collapse">
+								<div class="panel-body">
+										<p>Es la contracción de <b>REcursive TOpology</b>.</p>
+										<p>La programación para tratar las 4+1 topologías (Conjunto, Lista, Arbol y Grafo + Malla) es de tipo recursivo.</p>
+										<p>El lenguaje empleado es <b>ECMAScript 2015 (ES6)</b>, tanto en lado server (Node.js) como en lado cliente.</p>
+										<p>En lado server se usan algunos scripts tipo CGI, escritos en Bash, Python, PHP, etc etc</p>
+								</div>
+						</div>
+				</div>
+
+				<div class="panel panel-default">
+						<div class="panel-heading">
+								<h4 class="panel-title">
+										<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse2">¿Cuando y como surgió el proyecto? </a>
+								</h4>
+						</div>
+						<div id="collapse2" class="panel-collapse collapse">
+								<div class="panel-body">
+										<p>Fué al jubilarme en abril del 2010. Entonces se me ocurrió la idea por primera vez, 
+										y me pareció un bonito proyecto, al que dedicarle horas para hacerlo viable.</p>
+										<p>El punto de partida es la idea de que todas las aplicaciones hacen lo mismo.</p>
+										<p>Almacenar información, y recuperarla, mostrándola mediante un interfaz apropiado, al usuario.</p>
+								</div>
+						</div>
+				</div>
+
+				<div class="panel panel-default">
+						<div class="panel-heading">
+								<h4 class="panel-title">
+										<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+										Tecnologías base (stack)</a>
+								</h4>
+						</div>
+						<div id="collapse3" class="panel-collapse collapse">
+								<div class="panel-body">
+										Hay un stack que denomino v-NEMO.
+										<ul>
+												<li><a href="https://vuejs.org/" target="_blank">Vue.js</a></li>
+												<li><a href="https://nodejs.org/es/" target="_blank">Node</a></li>
+												<li><a href="https://expressjs.com/es/" target="_blank">Express</a></li>
+												<li><a href="https://www.mongodb.com/" target="_blank">MongoDB</a></li>
+												<li><a href="https://www.oracle.com/es/index.html" target="_blank">Oracle</a></li>
+									 </ul>
+										<p>Vue.js renderiza el HTML5, con los datos de la aplicación.</p>
+										<p>Node.js / Express: sirven tanto los ficheros estáticos, como los datos, via Ajax.</p>
+										<p>MongoDB / mongoose : Establecen el mecanismo para grabar, actualizar y borrar información persistente.</p>
+										<p>Oracle es el sinónimo para varias BBDD SQL, accesibles con scripts CGI.</p>
+										<p>Además, hay muchos packages NPM para ampliar las funcionalidades de Node</p>
+								</div>
+						</div>
+				</div>
+
+		
+				<div class="faqHeader">Fundamentos</div>
+
+				<div class="panel panel-default">
+						<div class="panel-heading">
+								<h4 class="panel-title">
+										<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseZero">Kernel</a>
+								</h4>
+						</div>
+						<div id="collapseZero" class="panel-collapse collapse">
+								<div class="panel-body">
+										<p>El <a href="kernel1.html/" target="_blank"><b>Kernel</b></a> es el conjunto de librerías JS que son comunes a todas las aplicaciones.</p>
+										<p>Las librerías son, básicamente Clases y funciones <i>ECMAScript 2015 (ES6)</i>.</p>
+										<p>Son unas 4000 líneas de código (en bruto).El peso total es de 60K, aprox.</p>
+										<p>Cada librería está dedicada a un aspecto concreto de las funcionalidades.</p>
+										<p>Las librerias que componen el Kernel v.1 son:
+										<ul>
+												<li><a href="libK1_Ajax.html" target="_blank">libK1_Ajax</a></li>
+												<li><a href="libK1_Clases.html" target="_blank">libK1_Clases</a></li>
+												<li><a href="libK1_Idioma.html" target="_blank">libK1_Idioma</a></li>
+												<li><a href="libK1_Random.html" target="_blank">libK1_Random</a></li>
+												<li><a href="libK1_Sesion.html" target="_blank">libK1_Sesion</a></li>
+												<li><a href="libK1_Tiempo.html" target="_blank">libK1_Tiempo</a></li>
+												<li><a href="libK1_Topol.html" target="_blank">libK1_Topol</a></li>
+												<li><a href="libK1_Trazo.html" target="_blank">libK1_Trazo</a></li>
+												<li><a href="libK1_Utils.html" target="_blank">libK1_Utils</a></li>
+									 </ul>
+
+								</div>
+						</div>
+				</div>
+
+				<div class="panel panel-default">
+						<div class="panel-heading">
+								<h4 class="panel-title">
+										<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Topologías</a>
+								</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse">
+								<div class="panel-body">
+										<p>La información de las aplicaciones se agrupa en colecciones de Nodos</p>
+										<p>Las colecciones son, básicamente Clases <b>ECMAScript 2015 (ES6)</b>, que constan de un Array de Nodos, y los métodos para manipular la topología.</p>
+										<p>Cada topología lleva asociada un objeto <b>meta</b> para agilizar las búsquedas en MongoDB</p>
+										<p>Clase <i>rMeta = {tag:'XYZ',iam: iamClaseTopol,org:Organiz}</i></p>
+										<p>Se consideran 4 topologías base y una derivada:
+										<ul>
+												<li><a href="topolConjt.html" target="_blank">Conjunto</a></li>
+												<li><a href="topolLista.html" target="_blank">Lista</a></li>
+												<li><a href="topolArbol.html" target="_blank">Arbol</a></li>
+												<li><a href="topolGrafo.html" target="_blank">Grafo</a></li>
+												<li>--------------------------------------</li>
+												<li><a href="topolMalla.html" target="_blank">Malla</a></li>
+									 </ul>
+
+								</div>
+						</div>
+				</div>
+
+				<div class="panel panel-default">
+						<div class="panel-heading">
+								<h4 class="panel-title">
+										<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTen">
+										Nodos</a>
+								</h4>
+						</div>
+						<div id="collapseTen" class="panel-collapse collapse">
+								<div class="panel-body">
+										<p>Los nodos representan las unidades de información de la aplicación que se desarrolla.</p>
+										<p>Partiendo de la clase <a href="topolNodos.html" target="_blank"><b>Nodo</b></a>, se pueden definir clases que representan las entidades de la aplicación</p>
+										<p>Comparativamente, si una topología puede asimilarse (relativamente) a una Tabla SQL, los nodos representarían las tuplas/filas</p>
+										<p>Pero además, estas clases proveen los métodos para manipular las entidades, e incluso la info para validar los formularios de edición, 
+										(con la capacidad de soportar MultiLenguaje).</p>
+								</div>
+						</div>
+				</div>
+
+				<div class="panel panel-default">
+						<div class="panel-heading">
+								<h4 class="panel-title">
+										<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">Arcos</a>
+								</h4>
+						</div>
+						<div id="collapseEleven" class="panel-collapse collapse">
+								<div class="panel-body">
+									<p>Para implementar la topología de Grafo, se define la clase <a href="topolArcos.html" target="_blank"><b>Arco</b></a>, que sirve para conectar dos Nodos.
+								</div>
+						</div>
+				</div>
+
+				
+
+
+				<div class="faqHeader">Tecnología servidor</div>
+
+				<div class="panel panel-default">
+						<div class="panel-heading">
+								<h4 class="panel-title">
+										<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Node.js</a>
+								</h4>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse">
+								<div class="panel-body">
+									<p>Hay un <a href="nodeServer.html" target="_blank"><b>prototipo</b></a> de servidor, con su Model, Routers y Controllers</p>
+									<p>El Model es siempre el mismo: </p>
+<pre><code>var topolSchema = new Schema({ 
+meta : { type: {} },
+nodos: { type: [] },
+});
+</code></pre>
+									<p>Esta definición genérica permite que mongoose maneje por igual cualquier modelo de datos que nos sea útil.</p>
+								</div>
+						</div>
+				</div>
+
+				<div class="panel panel-default">
+						<div class="panel-heading">
+								<h4 class="panel-title">
+										<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">MongoDB</a>
+								</h4>
+						</div>
+						<div id="collapseThree" class="panel-collapse collapse">
+								<div class="panel-body">
+										<p>Mediante el package <b>Mongoose</b> se establece el vínculo con las BBDD No-SQL de la aplicación.
+								</div>
+						</div>
+				</div>
+
+				<div class="panel panel-default">
+						<div class="panel-heading">
+								<h4 class="panel-title">
+										<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">BBDD SQL</a>
+								</h4>
+						</div>
+						<div id="collapseFour" class="panel-collapse collapse">
+								<div class="panel-body">
+										<p>A través de scripts estilo CGI, se establece comunicación con BBDD SQL : Oracle, MySQL, SQLite, PostGIS, etc
+								</div>
+						</div>
+				</div>
+
+
+					 <nav>
+						<ul class="pager">
+							<li><a href="index.html">Inicio</a></li>
+						</ul>
+					</nav>
+<hr />
+			<footer>
+				<p>&copy; RETO 2019</p>
+				<p>Sé parte del proyecto. Envía un e-mail a: <strong>info@marigold.es</strong></p>
+			</footer>
+</div> <!-- /container -->
+
+</body>
+</html>
+

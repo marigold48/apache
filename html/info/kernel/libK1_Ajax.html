@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="Proyecto RETO">
+
+<title>Kernel-Ajax</title>
+
+<!-- Bootstrap core CSS -->
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+				<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+
+<div class="container">
+			<div class="blog-header">
+				<h1 class="blog-title">Kernel - Ajax</h1>
+				<p class="lead blog-description"></p>
+			</div>
+
+			<div class="row">
+
+				<div class="col-sm-8 blog-main">
+
+					<div class="blog-post">
+						<h2 class="blog-post-title">Resumen</h2>
+<blockquote>
+<p>La librería <b>libK1_Ajax.js</b> agrupa las funciones para acceder a MongoDB y a los scripts CGI.</p>
+<p></p>
+<p>Las funciones implementadas son:</p>
+<ul>
+<li>function creaXHR(metodo,url,eco,async){<a href="/codigo.html?tipo=CODE&bloc=Ajax&tag=creaXHR" target="_blank">Ver código</a>}</li>
+<li>function ajaxPostTopol(params,async){<a href="/codigo.html?tipo=CODE&bloc=Ajax&tag=ajaxPostTopol" target="_blank">Ver código</a>}</li>
+<li>function ajaxPutTopol(params,async){<a href="/codigo.html?tipo=CODE&bloc=Ajax&tag=ajaxPutTopol" target="_blank">Ver código</a>}</li>
+<li>function ajaxDeleteTopol(params,async){<a href="/codigo.html?tipo=CODE&bloc=Ajax&tag=ajaxDeleteTopol" target="_blank">Ver código</a>}</li>
+<li>function ajaxDuplicaTopol(params,async){<a href="/codigo.html?tipo=CODE&bloc=Ajax&tag=ajaxDuplicaTopol" target="_blank">Ver código</a>}</li>
+<li>function ajaxGet1Topol(params,async){<a href="/codigo.html?tipo=CODE&bloc=Ajax&tag=ajaxGet1Topol" target="_blank">Ver código</a>}</li>
+<li>function ajaxGetAll(params,async){<a href="/codigo.html?tipo=CODE&bloc=Ajax&tag=ajaxGetAll" target="_blank">Ver código</a>}</li>
+<li>function ajaxGetMetas(params,async){<a href="/codigo.html?tipo=CODE&bloc=Ajax&tag=ajaxGetMetas" target="_blank">Ver código</a>}</li>
+<li>function ajaxGetMetasByOrg(params,async){<a href="/codigo.html?tipo=CODE&bloc=Ajax&tag=ajaxGetMetasByOrg" target="_blank">Ver código</a>}</li>
+<li>function ajaxCmdShell(params,cmdPar,async) {<a href="/codigo.html?tipo=CODE&bloc=Ajax&tag=ajaxCmdShell" target="_blank">Ver código</a>}</li>
+</ul>
+
+</blockquote>
+
+<p>Los parámetros a pasar se definen en una variable propia de cada aplicacion:</p>
+<pre><code>var vgApp = {
+	paramsXHR : {
+		url : 'http://' + window.location.hostname,
+		port : xxxx,
+		base : '/test',
+		iam : '',
+		eco : null
+	},
+	sqlite : {
+		base   : '/shell/sqlite',
+		userDB : 'usersTest.sqlite',
+		sessDB : 'sessTest.sqlite',
+		pathDB : 'apps/XYZ/sqlite/test',
+		stmtDB : '',
+	},
+	encript : {
+		base   : '/shell/encript',
+	}
+}
+</code></pre>
+
+					</div><!-- /.blog-post -->
+
+
+					<nav>
+						<ul class="pager">
+							<li><a href="infoRETO.html">pág Info</a></li>
+						</ul>
+					</nav>
+
+</div><!-- /.blog-main -->
+
+				<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+					<div class="sidebar-module">
+				</div><!-- /.blog-sidebar -->
+
+			</div><!-- /.row -->
+
+		</div><!-- /.container -->
+
+			<hr>
+
+			<footer>
+				<p>&copy; RETO 2019</p>
+				<p>Sé parte del proyecto. Envía un e-mail a: <strong>info@marigold.es</strong></p>
+			</footer>
+		</div> <!-- /container -->
+
+
+ </body>
+</html>
+

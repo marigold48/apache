@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="Proyecto Marigold">
+<style>
+	.divNota {overflow:hidden;padding:3px;margin:3px;border:1px gray solid}
+	.divNota {
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+		cursor: default;
+	}
+</style>
+
+<title>RETO</title>
+
+<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+		<script type="module" src="js/proyReto.js"></script>
+		<script>
+			function getProcesos(){
+				window.location = 'nodeRETO.html';
+			}
+
+		</script>
+</head>
+
+
+<body onload="javascript:initNotas()">
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a id="brand" class="navbar-brand" href="#">Notas</a>
+			</div>
+
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="javascript:nuevoBloc()"><i class="fa fa-plus"></i></a></li>
+
+		      <li class="dropdown" >
+		        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Modo
+		        <span class="caret"></span></a>
+		        <ul id="appModo" class="dropdown-menu">
+		          <li @click="toggleModo('NOTA')"><i class="fa fa-check" v-if="modo==='NOTA'"></i> Notas</li>
+		          <li @click="toggleModo('BLOC')"><i class="fa fa-check" v-if="modo==='BLOC'"></i> Blocs</li>
+		          <li @click="toggleModo('TASK')"><i class="fa fa-check" v-if="modo==='TASK'"></i> Tareas</li>
+		          <li @click="toggleModo('CODE')"><i class="fa fa-check" v-if="modo==='CODE'"></i> Código</li>
+		        </ul>
+		      </li>
+
+					<li><a href="javascript:getProcesos()"><i class="fa fa-gears"></i></a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+							<div id="divBusca" class="input-group">
+								<input v-model="patron" class="form-control" type="text"  name="lupa" placeholder="Buscar">
+								<span class="input-group-addon" @click="buscar()"><i class="fa fa-search"></i></span>
+							</div>                                                                  
+					</li>
+				</ul>
+			</div>
+		</nav> 
+
+	<div class="container">
+		<div class="row">
+			<div id="appEdit" v-if="visible" class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3"> 
+				<form  class="form">
+						<input type="checkbox" id="checkbox" v-model="cifra">
+						<label for="checkbox">Encriptar</label>						
+						<input v-if="cifra" type="password" id="frase" v-model="frase">
+						<span style="margin-right:10px;" class="pull-right">{{letras}}</span>
+						<input type="hidden" v-model="nota.id" name="id">
+						<input type="text" v-model="nota.tag" name="tag">
+						<textarea	maxlength="4000" class="form-control" v-on:keyup="tecla" v-model="nota.txt" name="texto"></textarea>
+						<button type="button" class="btn btn-success" @click="graba()"><i class="fa fa-save"></i></button>
+						<button type="button"  class="btn btn-success" @click="oculta()">OK</button>
+						<button type="button"  class="btn btn-success" @click="descifra()"><i class="fa fa-unlock"></i></button>
+						<button type="button"  class="btn btn-success" @click="cortar()"><i class="fa fa-cut"></i></button>
+						<button type="button"  v-if="editON" class="btn btn-danger"  @click="borra()"><i class="fa fa-trash"></i></button>
+				</form>
+			</div><!-- md-6 -->
+
+
+		</div> <!-- row -->
+
+
+		<div  id="appNotas" class="row">
+			<div class="col-md-2"> 
+
+			<div> 
+				<!-- span v-if="visible" @click="nuevoBloc()"><i class="fa fa-plus"></i></span -->
+
+				<button v-if="visible" class="btn btn-default col-md-12" v-for="bloc in blocs" @click="goBloc(bloc.bloc)">
+					{{bloc.bloc}}
+				</button>
+			</div><!-- Blocks -->
+
+
+		</div> <!-- md-2 -->
+
+			<div class="col-md-10"> 
+				<h2  style="display:inline-block">{{tagBloc}}</h2>
+				<span v-if="visible" style="float:right;">
+					Página {{pagina+1}}
+					<button type="button" @click="nuevaNota()"><i class="fa fa-plus"></i></button>
+					<button type="button" @click="sube()"><i class="fa fa-arrow-up"></i></button>
+					<button type="button" @click="baja()"><i class="fa fa-arrow-down"></i></button>
+					<button v-if="pegarON" type="button" @click="pegar()"><i class="fa fa-paste"></i></button>
+				</span>
+				<div class="divNota" v-for="nota in notas">
+					<h4  @dblclick="edit(nota.id)">{{nota.tag}} {{nota.etc}}</h4>
+					<div  v-html="nota.txt">{{nota.txt}}</div>
+				</div>
+			</div><!-- Bloc -->
+
+		</div> <!-- row -->
+	</div> <!-- container -->
+</body>
+</html>

@@ -1,0 +1,2 @@
+delete from sesiones;
+insert into sesiones (id) values ('20190702-114845');
