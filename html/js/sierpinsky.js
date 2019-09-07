@@ -77,13 +77,16 @@ class Triang {
 	split(){
 		var lado = this.pts[1].x - this.pts[0].x;
 		var Ts = [];
-		var T1 = new Triang(this.pts[0],lado/2,this.color);
+		var color1 = (this.color == 'maroon') ? 'green' : this.color;
+		var T1 = new Triang(this.pts[0],lado/2,color1);
 		Ts.push(T1);
 		var pm = this.puntoMedio(this.pts[0],this.pts[1]);
-		var T2 = new Triang(pm,lado/2,this.color);
+		var color2 = (this.color == 'maroon') ? 'blue' : this.color;
+		var T2 = new Triang(pm,lado/2,color2);
 		Ts.push(T2);
 		var pm = this.puntoMedio(this.pts[0],this.pts[2]);
-		var T3 = new Triang(pm,lado/2,this.color);
+		var color3 = (this.color == 'maroon') ? 'red' : this.color;
+		var T3 = new Triang(pm,lado/2,color3);
 		Ts.push(T3);
 
 		return Ts;
@@ -105,6 +108,7 @@ class Sierpinsky {
 		var p3 = pts[2];
 
 		this.cntxt.strokeStyle = T.color;
+
 		this.cntxt.beginPath();
 		this.cntxt.moveTo(p1.x+0.5,p1.y+0.5);
 		this.cntxt.lineTo(p2.x+0.5,p2.y+0.5);
