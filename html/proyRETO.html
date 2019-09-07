@@ -103,7 +103,7 @@
 		</div> <!-- row -->
 
 
-		<div  id="appNotas" class="row">
+		<div  id="appNotas" class="row" >
 			<div class="col-md-2"> 
 
 			<div> 
@@ -126,10 +126,12 @@
 					<button type="button" @click="baja()"><i class="fa fa-arrow-down"></i></button>
 					<button v-if="pegarON" type="button" @click="pegar()"><i class="fa fa-paste"></i></button>
 				</span>
+				<div  style="   overflow-y: scroll;   overflow-x: hidden;   max-height: 600px;">
 				<div class="divNota" v-for="nota in notas">
 					<h4  @dblclick="edit(nota.id)">{{nota.tag}} {{nota.etc}}</h4>
 					<div  v-html="nota.txt">{{nota.txt}}</div>
 				</div>
+			</div>
 			</div><!-- Bloc -->
 
 		</div> <!-- row -->
