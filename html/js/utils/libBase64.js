@@ -140,5 +140,3 @@ var Base64 = {
 	}
  
 }
-
-export { Base64 }

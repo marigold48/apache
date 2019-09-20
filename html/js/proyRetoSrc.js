@@ -1,23 +1,6 @@
 
 /*
-create table notas
-(id integer primary key autoincrement,
-texto text);
-
-create table blocs
-(id integer primary key autoincrement,
-bloc text,
-tag text,
-txt text
-);
-
-
-create table tasks
-(id integer primary key autoincrement,
-tipo text,
-tag text,
-txt text
-);
+En reto.sqlite
 
 create table textos
 (id integer primary key autoincrement,
@@ -28,13 +11,24 @@ etc text,
 txt text
 );
 */
-
 import {Base64} from './utils/libBase64.js';
+
 
 var vg0 = {
 	rutaCGIs : '/cgi-bin/',
 	qySQLite : 'k0GetQryLite.cgi',
 }
+class Nota {
+	constructor(tipo,bloc){
+		this.id = 0;
+		this.tipo = tipo;
+		this.bloc = bloc;
+		this.tag = '';
+		this.txt = '';
+	}
+}
+
+
 //------------------------------------------------------------------ Comprobacion de null,undefined,0,'',false,NaN
 function guay(expr){
    return (typeof expr != 'undefined' && expr)? true : false;
@@ -174,11 +168,6 @@ function encripta(texto,frase){
 	return result;
 }
 
-//------------------------------------------------------------------- Toggle Notas <--> Blocs
-function toggleModo(modo){
-	vg0.appModo.toggleModo(modo);
-}
-
 //------------------------------------------------------------------- Init
 function initApps(){
 	vg0.appEdit = new Vue({
@@ -190,14 +179,15 @@ function initApps(){
 			frase : '',
 			nota : {id:'',texto:''},
 			task : {id:'',texto:''},
-			letras : 0
+			letras : 0,
 			},
 		methods : {
 			borra : function(){borraNota(this.nota.id);},
 			graba : function(){grabaNota(this.nota.id);},
 			descifra : function(){descifraNota(this.nota.id);},
 			oculta : function(){this.visible = false;},
-			tecla : function(){this.letras = this.nota.texto.length;}
+			tecla : function(){this.letras = this.nota.txt.length;},
+			cortar : function(){vg0.appNotas.pegarON = true; this.visible = false;}
 		}
 
 	})
@@ -205,19 +195,31 @@ function initApps(){
 	vg0.appNotas = new Vue({
 		el: '#appNotas',
 		data: { 
+			tagBloc : '',
 			visible : true,
 			blocs : [],
 			notas : [],
-			pagina : 0
+			pagina : 0,
+			pegarON: false
 			},
 		methods : {
 			edit : function(id){editNota(id)},
 			sube : function(){
 				if (this.pagina == 0) return;
-				this.pagina--; getNotas();
+				this.pagina--; 
+				getNotas(vg0.appModo.modo,this.tagBloc);
 			},
-			baja : function(){this.pagina++; getNotas()},
-			goBloc : function(bloc){getNotasBloc(bloc);}
+			baja : function(){
+				this.pagina++; 
+				getNotas(vg0.appModo.modo,this.tagBloc)},
+			goBloc : function(bloc){
+				this.pagina = 0; 
+				getNotas(vg0.appModo.modo,bloc);
+			},
+			nuevaNota : function (){nuevaNota(vg0.appModo.modo);},
+			pegar : function(){
+				grabaNota();
+			}
 		}
 
 	})
@@ -230,9 +232,7 @@ function initApps(){
 			},
 		methods : {
 			buscar : function(id){
-				if (vg0.appModo.modo == 'NOTAS') buscaNotas(this.patron);
-				else if (vg0.appModo.modo == 'BLOCS') buscaNotasBloc(this.patron);
-				else if (vg0.appModo.modo == 'TASKS') buscaNotasTask(this.patron);
+				buscaNotas(this.patron);
 			}
 		}
 
@@ -242,35 +242,32 @@ function initApps(){
 		vg0.appModo = new Vue({
 			el: '#appModo',
 			data: { 
-				modo: 'NOTAS'
+				modo: 'NOTA'
 			},
 			methods : {
 				toggleModo : function(modo){
-					vg0.appNotas.visible = false;
-					vg0.appBlocs.visible = false;
-					vg0.appTasks.visible = false;
-
-					vg0.appNotasBloc.visible = false;
-					vg0.appNotasTask.visible = false;
-
+					vg0.appNotas.pagina = 0;
 					this.modo = modo;
-					if (modo == 'NOTAS'){
-						r$('brand').innerHTML = 'Notas';
+					if (modo == 'NOTA'){
 						vg0.appNotas.visible = true;
-						getNotas();  // se pone aquí para que Ajax no se equivoque :-)
+						r$('brand').innerHTML = 'Notas';
+						getBlocs('NOTA');  // se pone aquí para que Ajax no se equivoque :-)
 					}
-					else if (modo == 'BLOCS'){
+					else if (modo == 'BLOC'){
+						vg0.appNotas.visible = true;
 						r$('brand').innerHTML = 'Blocs';
-						vg0.appBlocs.visible = true;
-						vg0.appNotasBloc.visible = true;
-						getBlocs();  // se pone aquí para que Ajax no se equivoque :-)
+						getBlocs('BLOC');  // se pone aquí para que Ajax no se equivoque :-)
 
 					}
-					else if (modo == 'TASKS'){
+					else if (modo == 'TASK'){
+						vg0.appNotas.visible = true;
 						r$('brand').innerHTML = 'Tareas';
-						vg0.appTasks.visible = true;
-						vg0.appNotasTask.visible = true;
-						getTasks();  // se pone aquí para que Ajax no se equivoque :-)
+						getBlocs('TASK');  // se pone aquí para que Ajax no se equivoque :-)
+					}
+					else if (modo == 'CODE'){
+						vg0.appNotas.visible = true;
+						r$('brand').innerHTML = 'Código';
+						getBlocs('CODE');  // se pone aquí para que Ajax no se equivoque :-)
 					}
 				}
 			}
@@ -280,10 +277,11 @@ function initApps(){
 
 
 }
+//------------------------------------------------------------------- Validar Sesion
 function ecoQrySess(xhr){
 	var filas = csv2filas(xhr.responseText);
 
-	if (filas.length && filas[0].id == vg0.idSess) 	getNotas();
+	if (filas.length && filas[0].id == vg0.idSess) 	getBlocs('NOTA',null);
 	else window.location = '/index.html';
 }
 
@@ -303,4 +301,221 @@ function initNotas(){
 	initApps();
 }
 
-export {initNotas}
+//------------------------------------------------------------------- Get Notas
+function ecoQueryNotas(xhr){
+	var filas = [];
+	var lineas = xhr.responseText.split('\n');
+	var caps = lineas.splice(0,1)[0];
+	lineas.map(function(lin){
+		if (lin.length && !lin.match('error:0')){
+			var fila = csv2hash(caps,lin);
+			if (fila) filas.push(fila)
+		}
+	})
+	vg0.notas = filas;
+	var notas = [];
+	filas.map(function(fila){
+		console.log(fila.tag);
+		fila.txt = fila.txt.split('·~').join('<br>');
+		fila.txt = fila.txt.split('·!').join('|');
+		fila.txt = fila.txt.split('·[').join('<a href="');
+		fila.txt = fila.txt.split('·:·').join('" target="_blank">');
+		fila.txt = fila.txt.split(']·').join('</a>');
+		fila.txt = fila.txt.split('·/').join('\'');
+		notas.push(fila);
+	})
+	vg0.appNotas.notas = notas;
+	if (filas.length) vg0.appNotas.tagBloc =filas[0].bloc;
+}
+
+function getNotas(tipo, bloc){
+console.log(tipo+'::'+bloc);
+
+	var id = 1234567;
+	if (tipo== 'CODE'){
+		var bd = 'codigo.sqlite';
+	}
+	else {
+		var bd = 'reto.sqlite';
+	}
+//	var stmt = "select * from (select * from textos where tipo='"+tipo+"'";
+	var stmt = "select * from textos where tipo='"+tipo+"'";
+	stmt+=" and bloc = '"+bloc+"'";
+//	stmt += ")  order by id desc limit 20 offset "+(vg0.appNotas.pagina*10)+";";
+	stmt += ";";
+	console.log(stmt);
+	var ruta = '/';
+	ajaxQuerySQLite (id,bd,stmt,ruta,ecoQueryNotas);
+
+}
+
+//------------------------------------------------------------------- Get Blocs
+function ecoGetBlocs(xhr){
+	var filas = [];
+	var lineas = xhr.responseText.split('\n');
+	var caps = lineas.splice(0,1)[0];
+	lineas.map(function(lin){
+		if (lin.length && !lin.match('error')){
+			var fila = csv2hash(caps,lin);
+			if (fila) filas.push(fila)
+		}
+	})
+	var blocs = [];
+	filas.map(function(fila){
+		blocs.push(fila);
+	})
+	vg0.appNotas.blocs = blocs;
+	vg0.appNotas.notas = [];
+}
+
+
+function getBlocs(tipo){
+	var id = 1234567;
+	if (tipo == 'CODE'){
+		var bd = 'codigo.sqlite';
+	}
+	else {
+		var bd = 'reto.sqlite';
+	}
+	var stmt = "select distinct bloc from textos where tipo='"+tipo+"' order by bloc;";
+	var ruta = '/';
+	ajaxQuerySQLite (id,bd,stmt,ruta,ecoGetBlocs);
+}
+
+function ecoNuevoBloc(xhr){
+	console.log(xhr.responseText);
+	getBlocs(vg0.appModo.modo);
+}
+
+function nuevoBloc(){
+	var tag = prompt ('Nombre?');
+	if (!tag) return;
+	tipo = vg0.appModo.modo;
+	var id = 1234567;
+	if (tipo == 'CODE'){
+		var bd = 'codigo.sqlite';
+	}
+	else {
+		var bd = 'reto.sqlite';
+	}
+	var stmt = "insert into textos (tipo,bloc,tag,txt) values ('"+tipo+"','"+tag+"','Sin titulo','Nota inicial (editar)');";
+	var ruta = '/';
+	ajaxQuerySQLite (id,bd,stmt,ruta,ecoNuevoBloc);
+}
+
+
+//=================================================================== Edit Notas
+
+function ecoGraba(xhr){
+	console.log('ecoGraba: '+xhr.responseText);
+	getNotas(vg0.appModo.modo,vg0.appNotas.tagBloc);
+	vg0.appEdit.visible = false;
+	return false;
+}
+
+function grabaNota(){
+	var nota = vg0.appEdit.nota;
+	var tipo = vg0.appModo.modo;
+
+	var txt = '';
+	txt = nota.txt.split('\n').join('·~');
+	txt = txt.split('|').join('·!');
+	txt = txt.split("\'").join('·/');
+	if (vg0.appEdit.cifra){
+		var frase = vg0.appEdit.frase;
+		txt = Base64.encode(encripta(txt,frase));
+	}
+	var id = 12345670;
+	if (tipo == 'CODE') var bd = 'codigo.sqlite';
+	else var bd = 'reto.sqlite';
+
+	if (vg0.appEdit.editON && vg0.appNotas.pegarON){
+		var stmt = "update textos set tipo='"+tipo+"',bloc='"+vg0.appNotas.tagBloc+"' where id="+nota.id+";";
+		vg0.appNotas.pegarON = false;
+	}
+	else if (vg0.appEdit.editON){
+		var stmt = "update textos set tag='"+nota.tag+"',txt='"+txt+"' where id="+nota.id+";";
+	}
+	else {
+		var stmt = "insert into textos (tipo,bloc,tag,txt) values ('"+nota.tipo+"','"+nota.bloc+"','"+nota.tag+"','"+txt+"');";
+	}
+	console.log('bd: '+bd);
+	console.log('Graba: '+stmt);
+	var ruta = '/';
+	ajaxQuerySQLite (id,bd,stmt,ruta,ecoGraba);
+}
+
+
+function ecoBorra(xhr){
+	console.log('ecoBorra: '+xhr.responseText);
+	getNotas();
+	vg0.appEdit.visible = false;
+	return false;
+}
+
+function borraNota(){
+	var nota = vg0.appEdit.nota;
+	var id = 1234567;
+	var tipo = vg0.appModo.modo;
+	if (tipo == 'CODE'){
+		var bd = 'codigo.sqlite';
+	}
+	else {
+		var bd = 'reto.sqlite';
+	}
+	var stmt = "delete from textos where id="+nota.id+";";
+	var ruta = '/';
+	ajaxQuerySQLite (id,bd,stmt,ruta,ecoBorra);
+}
+
+function editNota(id){
+	var n = vg0.notas.length;
+	for (var i=0;i<n;i++){
+		var nota = vg0.notas[i];
+		if (nota.id == id){
+			var txt = nota.txt.split('<br>').join('\n');
+			txt = txt.split('<a href="').join('·[');
+			txt = txt.split('" target="_blank">').join('·:·');
+			txt = txt.split('</a>').join(']·');
+			vg0.appEdit.nota = {id:nota.id,tag:nota.tag,txt:txt}; // desacoplo de la nota en edicion
+			vg0.appEdit.letras = txt.length;
+			vg0.appEdit.visible = true;
+			vg0.appEdit.editON = true;
+			break;
+		}
+
+	}
+}
+
+function nuevaNota(){
+	var nota = new Nota();
+	nota.tipo = vg0.appModo.modo;
+	nota.bloc = vg0.appNotas.tagBloc;
+	vg0.appEdit.nota = nota;
+	vg0.appEdit.letras = '0';
+	vg0.appEdit.visible = true;
+	vg0.appEdit.editON = false;
+}
+
+function descifraNota(){
+	var nota = vg0.appEdit.nota;
+	var frase = vg0.appEdit.frase;
+	var b64 = Base64.decode(nota.txt);
+	var descifrado = encripta(b64,frase);
+	var txt = descifrado.split('·~').join('\n');
+
+	nota.txt = txt;
+}
+
+function buscaNotas(patron){
+	if (patron.length == 0)	{getNotas(vg0.appModo.modo,vg0.appNotas.tagBloc);return false;}
+	var id = 1234567;
+	var bd = 'reto.sqlite';
+	var stmt = "select * from textos where tipo='"+vg0.appModo.modo+"' and  bloc='"+vg0.appNotas.tagBloc+"' and upper(txt) like '%"+patron.toUpperCase()+"%' limit 50;";
+	console.log(stmt);
+	var ruta = '/';
+	ajaxQuerySQLite (id,bd,stmt,ruta,ecoQueryNotas);
+
+}
+
+export { initNotas }
