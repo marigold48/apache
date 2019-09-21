@@ -28,7 +28,11 @@ etc text,
 txt text
 );
 */
+import src from '/js/proyRetoSrc.js'
 
-import {initNotas} from './proyRetoSrc.js';
+function initNotas(){
+	src.validaSesion();
+	src.initApps();
+}
 
-initNotas();
+window.onload = initNotas;

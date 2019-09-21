@@ -11,7 +11,7 @@ txt text
 );
 */
 
-import comun from '/js/utils/comun.js'
+import utils from '/js/comun/utils.js'
 
 
 class Nota {
@@ -28,7 +28,7 @@ class Nota {
 
 //------------------------------------------------------------------- Init
 function initApps(){
-	comun.vg0.appNotas = new Vue({
+	utils.vg0.appNotas = new Vue({
 		el: '#appNotas',
 		data: { 
 			tagBloc : '',
@@ -56,7 +56,7 @@ function initApps(){
 	})
 
 
-	comun.vg0.appBusca = new Vue({
+	utils.vg0.appBusca = new Vue({
 		el: '#divBusca',
 		data: { 
 			patron : ''
@@ -77,11 +77,11 @@ function ecoQueryNotas(xhr){
 	var caps = lineas.splice(0,1)[0];
 	lineas.map(function(lin){
 		if (lin.length && !lin.match('error:0')){
-			var fila = comun.csv2hash(caps,lin);
+			var fila = utils.csv2hash(caps,lin);
 			if (fila) filas.push(fila)
 		}
 	})
-	comun.vg0.notas = filas;
+	utils.vg0.notas = filas;
 	var notas = [];
 	filas.map(function(fila){
 		fila.txt = fila.txt.split('·~').join('<br>');
@@ -89,8 +89,8 @@ function ecoQueryNotas(xhr){
 		fila.txt = fila.txt.split('·/').join('\'');
 		notas.push(fila);
 	})
-	comun.vg0.appNotas.notas = notas;
-	if (filas.length) comun.vg0.appNotas.tagBloc =filas[0].bloc;
+	utils.vg0.appNotas.notas = notas;
+	if (filas.length) utils.vg0.appNotas.tagBloc =filas[0].bloc;
 }
 
 function getNota(tipo, bloc,tag){
@@ -103,7 +103,7 @@ function getNota(tipo, bloc,tag){
 	stmt += " and tag='"+tag+"';";
 	console.log(stmt);
 	var ruta = '/';
-	comun.ajaxQuerySQLite (id,bd,stmt,ruta,ecoQueryNotas);
+	utils.ajaxQuerySQLite (id,bd,stmt,ruta,ecoQueryNotas);
 
 }
 
@@ -115,7 +115,7 @@ function buscaNotas(patron){
 	var stmt = "select * from textos where tipo='CODE' and  bloc='"+vg0.appNotas.tagBloc+"' and upper(txt) like '%"+patron.toUpperCase()+"%' limit 50;";
 	console.log(stmt);
 	var ruta = '/';
-	comun.comun.ajaxQuerySQLite (id,bd,stmt,ruta,ecoQueryNotas);
+	utils.ajaxQuerySQLite (id,bd,stmt,ruta,ecoQueryNotas);
 
 }
 
@@ -123,7 +123,7 @@ function buscaNotas(patron){
 
 function initNotas(){
 	initApps();
-	var params = comun.getParamsHTML();
+	var params = utils.getParamsHTML();
 	var tipo = params.tipo;
 	var bloc = params.bloc;
 	var tag  = params.tag;

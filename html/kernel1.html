@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="PES Marigold">
+
+    <title>RETO Kernel</title>
+
+    <!-- Bootstrap core CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+
+<div class="container">
+      <div class="blog-header">
+        <h1 class="blog-title">Kernel</h1>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+          <div class="blog-post">
+            <h2 class="blog-post-title">Definición</h2>
+            <p>El Kernel de RETO, reúne las funcionalidades comunes que necesita cualquier aplicación</p>
+            <p>Es un conjunto de librerias javascript, basado en el standard <b>ES6</b></p>
+            <p>Se utiliza el mecanismo de <b>módulos</b> de ES6, para usar las funciones y clases definidas, desde los módulos .js de la aplicación</p>
+            <hr>
+            <p></p>
+            <blockquote>
+            </blockquote>
+            <h4>Ajax</h4>
+            <p>Contiene las funciones que permiten las llamadas asíncronas al server</p>
+            <ul>
+              <li>Grabar una topología en MongoDB</li>
+              <li>Obtener una topología mediante su <i>_id</i></li>
+              <li>Actualizar una topología existente</li>
+              <li>Borrar una topología mediante su <i>_id</i></li>
+              <li>Obtener una lista de objetos <i>meta</i> de las topologías, por su {iam}</li>
+              <li>Obtener una lista de objetos <i>meta</i> de las topologías, por su {iam} y organización {org}</li>
+              <li>Ejecutar scripts tipo Bash, Python, etc en el server</li>
+            </ul>
+            <h4>Clases auxiliares</h4>
+            <p>Contiene las clases que no son de Topología</p>
+            <ul>
+              <li>Clases para el módulo de Multi Lenguaje (ML)</li>
+              <li>Arbol de cálculos</li>
+              <li>Arbol BTree+</li>
+              <li>Etc</li>
+            </ul>
+            <h4>Cultivos</h4>
+            <p>Planificación de cultivos de <b>variedades</b> sobre los diferentes <b>bancales</b></p>
+            <ul>
+              <li>Creación escenarios (matriz bancales/variedades), en un tiempo definido</li>
+              <li>Asignación de variedades a bancales</li>
+              <li>Edición del Grafo de tareas previstas</li>
+              <li>Temporadas</li>
+              <li>Esquema Gantt de tareas</li>
+              <li>Agenda de tareas (calendario)</li>
+            </ul>
+
+            <h4>Riego</h4>
+            <p>Infraestructuras de <b>riego</b> de los cultivos en los diferentes <b>bancales</b></p>
+            <ul>
+              <li>Captación del agua (pozos, lluvia, etc)</li>
+              <li>Acumulación (depósitos, embalses, etc)</li>
+              <li>Transporte (canales, tuberías, etc)</li>
+              <li>Red de distribución</li>
+              <li>Métodos (aspersión, goteo, etc)</li>
+            </ul>
+            <br>
+
+
+            <h4>Evaluaciones</h4>
+            <p>Una vez planificado una temporada, se puede evaluar con diferentes ópticas:</p>
+            <ul>
+              <li>Evaluación económica prevista de la temporada</li>
+              <li>Evaluación de incompatibilidades entre productos</li>
+              <li>Evaluación de rotaciones</li>
+              <li>Planificación de <b>riegos</b>
+                <ul>
+                  <li>Necesidades hídricas de cultivos</li>
+                  <li>Previsión del calendario de riegos</li>
+                  <li>Ajustes del calendario de riegos por climatología</li>
+                </ul>
+              </li>
+            </ul>
+
+            <h4>Documentación y trámites</h4>
+            <p>Generación de modelos para declaracioes</p>
+            <ul>
+              <li>DUN</li>
+              <li>Cuaderno de campo</li>
+            </ul>
+
+          </div><!-- /.blog-post -->
+
+
+        </div><!-- /.blog-main -->
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          <div class="sidebar-module">
+            <h4>Webs de interés</h4>
+            <ol class="list-unstyled">
+              <li><a href="http://agricultura.gencat.cat/dun" target="_blank">DUN</a></li>
+              <li><a href="https://associaciolera.org/" target="_blank">Associació L'Era</a></li>
+              <li><a href="https://www.agrodigital.com/"  target="_blank">Agro digital</a></li>
+              <li><a href="http://www.sembraensao.org/"  target="_blank">Sembra en Saó</a></li>
+              <li><a href="http://www.redsemillas.info/"  target="_blank">Red semillas</a></li>
+              <li><a href="http://www.kokopelli.asso.fr/"  target="_blank">Asoc. Kokopelli</a></li>
+              <li><a href="http://www.enzazaden.es/"  target="_blank">Enza Zaden</a></li>
+              <li><a href="http://www.bejo.es/"  target="_blank">Bejo Ibérica</a></li>
+              <li><a href="http://www.semillassilvestres.com/"  target="_blank">Semillas silvestres</a></li>
+              <li><a href="https://vergeldelashadas.com/"  target="_blank">El vergel de las hadas</a></li>
+              <li><a href="http://www.milhulloa.es/index.php/es-es/"  target="_blank">Milhulloa</a></li>
+              <li><a href="http://rieravillagrasa.com/"  target="_blank">Riera Vilagrasa</a></li>
+              <li><a href="http://agrobotigacantria.blogspot.com.es/p/6.html"  target="_blank">Bioplanta Can Tria</a></li>
+              <li><a href="http://www.equivitalsl.com/"  target="_blank">Equivital SL</a></li>
+              <li><a href="http://www.agrhumus.com/"  target="_blank">AGRhumus</a></li>
+              <li><a href="http://www.lineaclave.org/web/"  target="_blank">Linea Clave</a></li>
+              <li><a href="https://www.ecoinvent.org/"  target="_blank">Ecoinvent</a></li>
+            </ol>
+          </div>
+        </div><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+      <hr>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

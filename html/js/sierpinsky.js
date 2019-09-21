@@ -39,7 +39,7 @@ Real Mitad( P1, P2 )
 		Terminar( Resultado )
 */
 
-import {o2s} from './utils/comun.js';
+import utils from '/js/comun/utils.js';
 
 //------------------------------------------------------------------- Triangulo de Sierpinsky
 class Punto {
